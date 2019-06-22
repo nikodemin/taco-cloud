@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.ui.Model;
 import model.Ingredient.Type
 import model.Taco
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.PostMapping
+import javax.validation.Valid
 
 
 @Controller
@@ -40,8 +42,10 @@ class DesignTaco
     }
 
     @PostMapping
-    fun processDesign (design:Taco) : String
+    fun processDesign (@Valid design:Taco, errors:Errors) : String
     {
+        if(errors.hasErrors())
+            return "design"
         println(design)
         return "redirect:/orders/current";
     }
